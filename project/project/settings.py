@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'main', # Add our new app to this list of installed apps.
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
