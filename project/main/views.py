@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from .models import User
 from .forms import UserRegistrationForm
+from django.contrib.auth.hashers import make_password
 # from django.http import HttpResponse # This class is used for generate HTTP-format responses (answers)
 
 # Create your views here.
@@ -13,7 +15,34 @@ def home(request):
     # pass
     
 def registration(request): 
-    form = UserRegistrationForm()
+    if request.method == 'POST': 
+        # Create the same form object but with a data from POST array:
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid(): 
+            first_name = form.cleaned_data.get('first_name')
+            middle_name = form.cleaned_data.get('middle_name')
+            email = form.cleaned_data.get('email')
+            login = form.cleaned_data.get('login')
+            password = form.cleaned_data.get('password')
+            gender = form.cleaned_data.get('gender')
+            age = form.cleaned_data.get('age')
+            to_be_informed = form.cleaned_data.get('to_be_informed')
+            
+            hash_password = make_password(password)
+            
+            new_user = User()
+            new_user.first_name = first_name
+            new_user.middle_name = middle_name
+            new_user.email = email
+            new_user.password = hash_password
+            new_user.gender = gender
+            new_user.age = age
+            if to_be_informed == True:
+                new_user.to_be_informed = True
+            
+            new_user.save()
+    else:
+        form = UserRegistrationForm()
     
     data = {
         'form': form,
