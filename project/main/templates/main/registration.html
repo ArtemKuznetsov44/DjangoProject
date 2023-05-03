@@ -3,11 +3,11 @@
 {% block title %}
     Registration
 {% endblock title %}
-
 {% block page_style_link %}
-    <link type="text/css" href="{% static 'main/css/registration.css' %}" rel="stylesheet" />
+    <link type="text/css"
+          href="{% static 'main/css/registration.css' %}"
+          rel="stylesheet" />
 {% endblock page_style_link %}
-
 {% block content %}
     <div class="registration_form">
         <form method='post'>
@@ -15,14 +15,14 @@
             {% for field in form %}
                 {% if field.label_tag == form.to_be_informed.label_tag or field.label_tag == form.accept_rules.label_tag %}
                     {{ field }}
-                    {{ field.label_tag }} <br/>
+                    {{ field.label_tag }}
+                    <br />
                 {% else %}
                     {{ field.label_tag }}
-                    {{ field }} <br/>
+                    {{ field }}
+                    <br />
                     {% if field.errors %}
-                        {% for error in field.error %}
-                            {{ error }}
-                        {% endfor %}
+                        {% for error in field.error %}{{ error }}{% endfor %}
                     {% endif %}
                 {% endif %}
             {% endfor %}
