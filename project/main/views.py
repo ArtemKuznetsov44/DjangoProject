@@ -1,6 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import User
-from .forms import UserRegistrationForm
+from .models import MyRegisteredUser
+from .forms import MyUserRegistrationForm, RegisterUserForm
 from django.contrib.auth.hashers import make_password
 # from django.http import HttpResponse # This class is used for generate HTTP-format responses (answers)
 
@@ -14,10 +15,10 @@ def home(request):
     # Do nothing:
     # pass
     
-def registration(request): 
+def my_registration(request): 
     if request.method == 'POST': 
         # Create the same form object but with a data from POST array:
-        form = UserRegistrationForm(request.POST)
+        form = MyUserRegistrationForm(request.POST)
         if form.is_valid(): 
             first_name = form.cleaned_data.get('first_name')
             middle_name = form.cleaned_data.get('middle_name')
@@ -42,13 +43,36 @@ def registration(request):
             
             new_user.save()
     else:
-        form = UserRegistrationForm()
+        form = MyUserRegistrationForm()
     
     data = {
         'form': form,
     }
     
-    return render(request, template_name='main/registration.html', context=data) 
+    return render(request, template_name='main/my_registration.html', context=data) 
 
-def authorization(request): 
-    return render(request, template_name='main/authorization.html')
+def my_authorization(request): 
+    return render(request, template_name='main/my_authorization.html')
+
+def default_registration(request): 
+    # Checks that method is POST:
+    if request.method == 'POST':
+        # Get data from form:
+        form = RegisterUserForm(request.POST)
+        # If data is valid:
+        if form.is_valid(): 
+            # Create new uers with the data in form:
+            new_user = form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(form.cleaned_data['password1'])
+            # Save the User object
+            new_user.save()
+            form = RegisterUserForm()
+            return render(request, template_name = 'main/default_registration.html', context={'form': form})
+    else:
+        form = RegisterUserForm()
+        
+    return render(request, template_name = 'main/default_registration.html', context={'form': form})
+
+def default_authorization(request): 
+    return render(request, template_name='main/default_authorization.html')

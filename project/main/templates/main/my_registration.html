@@ -6,10 +6,12 @@ Registration
 {% block page_style_link %}
 <link type="text/css" href="{% static 'main/css/registration.css' %}" rel="stylesheet" />
 {% endblock page_style_link %}
+
 {% block content %}
 <div class="registration_form">
     <form method='post'>
         {% csrf_token %}
+
         {% for field in form %}
         {% if field.label_tag == form.to_be_informed.label_tag or field.label_tag == form.accept_rules.label_tag %}
         {{ field }}
