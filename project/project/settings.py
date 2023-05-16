@@ -125,3 +125,6 @@ STATICFILES_DIR = []
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# We can also use this const for redirect users after authentification without get_success_url() methos usage:
+# LOGIN_REDIRECT_URL = '/'

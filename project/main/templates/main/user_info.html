@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {% endblock title %}
+
+{% block page_style_link %}
+<link type="text/css" href="{% static 'main/css/profile.css' %}" rel="stylesheet" />
+{% endblock page_style_link %}
+
+{% block content %}
+
+<div class="user_info_container">
+    <h1> YOUR PROFILE: </h1>
+    <ul class="person_info">
+        <li> USERNAME: {{user.username}} </li>
+        <li> PERSONAL INFO: {{user.first_name}} {{user.last_name}}</li> 
+        <li> E-MAIL: {{user.email}} </li>
+    </ul>
+    
+</div>
+
+{% endblock content %}

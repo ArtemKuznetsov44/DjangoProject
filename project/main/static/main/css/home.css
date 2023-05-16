@@ -1,0 +1,13 @@
+.slider {
+    padding: 5px; 
+    background-color: rgb(83, 83, 83);
+    border-radius: 20px;
+    max-width: 90vw;
+    position: absolute; 
+    left: 50%; 
+    transform: translate(-50%);
+}
+
+img {
+    border-radius: 15px;
+}

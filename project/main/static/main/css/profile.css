@@ -1,0 +1,8 @@
+.person_info >li {
+    list-style-type: none;
+    padding: 5px;
+    margin: 5px;
+    background-color: grey;
+    max-width: fit-content;
+    border-radius: 10px;
+}

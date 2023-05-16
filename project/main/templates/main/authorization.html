@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Registration {% endblock title %}
+
+{% block page_style_link %}
+<link type="text/css" href="{% static 'main/css/registration.css' %}" rel="stylesheet" />
+{% endblock page_style_link %}
+
+{% block content %}
+
+<div class="registration_form">
+    <form method='post'>
+        <!-- This statement will show errors for user witch are not from field (about authentication process): -->
+        {{form.non_field_errors}}
+
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field.label }}
+        {{ field }}
+        {% if field.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ field.errors }}
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <button class="btn btn-success" type="submit">Complete</button>
+    </form>
+</div>
+{% endblock content %}
