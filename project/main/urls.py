@@ -1,6 +1,6 @@
 
 from django.urls import path
-from main.views import UserLogin, UserRegister, UserSignOut, Profile, AddNewPost, ShowPosts
+from main.views import UserLogin, UserRegister, UserSignOut, Profile, AddNewPost, ShowPosts, PostView
 from main import views
 
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
     path('signout/', UserSignOut.as_view(), name='sign_out'),
     path('profile/id=<int:pk>/', Profile.as_view(), name='profile'),
     path('add_post/', AddNewPost.as_view(), name='new_post'), 
+    path('post/post=<int:pk>', PostView.as_view(), name='show_post'),
     
     # These are previous paths for registration and authentification for user without class-based views:
     # path('my_registration/', views.my_registration, name='my_registration'),

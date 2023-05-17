@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {% endblock title %}
+
+{% block page_style_link %}
+<link type="text/css" href="{% static 'main/css/post.css' %}" rel="stylesheet" />
+{% endblock page_style_link %}
+
+{% block content %}
+
+<div class="post">
+    <h2> {{post.title }} | Published by: {{post.user}} </h2>
+
+    <p class="content">
+        <img src="{{post.photo.url}}" alt="{{post.title}}" class="left_img"/>
+        <!-- Linebreaks it is a filter to separate our text into paragraphs:
+        (Этот фильтр автоматически заменяет переносы строк на теги <p> и создает абзацы в тексте.) -->
+        {{post.content|linebreaks }}
+    </p>
+</div>
+
+{% endblock content %}
