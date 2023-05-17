@@ -12,11 +12,11 @@ from main.forms import RegisterUserForm, LoginUserForm, AddPost
 
 # To my mind it is like an action in Yii (maybe it is a worse statement)
 # The request param is required (обязетельный):
-def home(request): 
-    # return HttpResponse("<h1>Main page</h1>")
-    return render(request, template_name='main/home.html')
-    # Do nothing:
-    # pass
+# def home(request): 
+#     # return HttpResponse("<h1>Main page</h1>")
+#     return render(request, template_name='main/home.html')
+#     # Do nothing:
+#     # pass
     
 ''' My previous functions for registration and authentification:
 def my_registration(request): 
@@ -113,6 +113,11 @@ class Profile(DetailView):
     template_name='main/user_info.html'
     # This var now can be use in our templates:
     context_object_name = 'user'
+    
+class PostView(DetailView): 
+    model = Post
+    template_name = 'main/post.html'
+    context_object_name = 'post'
 
 
 class ShowPosts(ListView):
