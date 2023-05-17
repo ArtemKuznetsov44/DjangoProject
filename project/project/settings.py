@@ -128,3 +128,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # We can also use this const for redirect users after authentification without get_success_url() methos usage:
 # LOGIN_REDIRECT_URL = '/'
+
+# This is a constant link to the directory OurProject/media/
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# This a constan for additing to upload filex prefix media
+MEDIA_URL = '/media/'
+
+# Когда мы используем отладочный веб-сервер, нам необходимо съэмулировать работу реального Web-сервера, 
+# для того, чтобы получить ранее загруженные файлы и передать их нашему приложению.
+# Для этого необходимо в файле urls.py нашего проекта добавить условие.

@@ -1,13 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import MyRegisteredUser
-from django.forms.widgets import EmailInput, PasswordInput, TextInput, CheckboxInput, Select, RadioSelect
+from main.models import Post
+
+from django.forms.widgets import EmailInput, PasswordInput, TextInput, CheckboxInput, Select, RadioSelect, FileInput, Textarea
 from django.core.validators import RegexValidator, EmailValidator
 
 # This is my user registration form:
 
-
+'''
 class MyUserRegistrationForm(forms.ModelForm):
     # Our widgets dictionary works only with fields from model
     # and only for fields which your not specified in forms again before Meta class:
@@ -79,10 +80,9 @@ class MyUserRegistrationForm(forms.ModelForm):
                 "class": "form-check-input"
             }),
         }
+'''
 
 # This is a class for default user registration form:
-
-
 class RegisterUserForm(UserCreationForm):
 
     username = forms.CharField(label="username", widget=TextInput(attrs={"class": "form-control", "placeholder": "Username"}))
@@ -122,3 +122,25 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label="password", widget=PasswordInput(attrs={"class": "form-control", "placeholder": "Password"}))
     
     
+class AddPost(forms.ModelForm):
+    
+    class Meta:
+        model = Post
+        fields = ('title', 'photo', 'content')
+        
+        widgets = {
+            'title': TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Title"
+            }),
+            'photo': FileInput(attrs={
+                "class": "form-control", 
+            }), 
+            'content': Textarea(attrs={
+                "class": "form-control", 
+                "rows": "5",
+                "placeholder": "Some content here..."
+            })
+        }
+    
+   

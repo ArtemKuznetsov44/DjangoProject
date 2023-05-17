@@ -12,3 +12,16 @@ a:hover {
     color: orange; 
     transition: 0.5 ease;
 }
+
+.navbar-nav > li {
+    display: flex; 
+    align-items: baseline;
+    margin-left: 10px;
+}
+
+.user_info {
+    padding: 5px; 
+    margin-left: 10px;
+    background-color: rgb(83, 83, 83);
+    border-radius: 15px;
+}

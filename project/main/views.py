@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 # from .models import MyRegisteredUser - This is not for use now.
 
 # The default model for Users in Django:
 from django.contrib.auth.models import User
+from main.models import Post
 # Import our forms from file (all out forms are based on default Django forms)
-from .forms import RegisterUserForm, LoginUserForm
+from main.forms import RegisterUserForm, LoginUserForm, AddPost
 
 # To my mind it is like an action in Yii (maybe it is a worse statement)
 # The request param is required (обязетельный):
@@ -86,7 +87,6 @@ class UserRegister(CreateView):
     template_name = "main/registration.html"
     form_class = RegisterUserForm
     
-    
     def get_success_url(self):
         """Return the URL to redirect to after processing a valid form."""
         return reverse_lazy('home')
@@ -101,13 +101,37 @@ class UserLogin(LoginView):
         """Return the URL to redirect to after processing a valid form."""
         return reverse_lazy('home')
     
+    
 class UserSignOut(LogoutView):
     def get_success_url(self):
         """Return the URL to redirect to after processing a valid form."""
         return reverse_lazy('home')
+ 
     
 class Profile(DetailView):
     model = User
     template_name='main/user_info.html'
     # This var now can be use in our templates:
     context_object_name = 'user'
+
+
+class ShowPosts(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name='main/home.html'
+   
+    
+class AddNewPost(CreateView): 
+    form_class = AddPost
+    template_name = 'main/add_post.html'
+    
+    # This method is called when all form field are valid:
+    def form_valid(self, form):
+        # Здесь происход обращение к сущности формы, которая связана с моделью Post, 
+        # в которой есть поле user (внешний ключ), который необходимо заполнить id пользователя. 
+        # Данный id пользователя мы берем ис самого запроса. 
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self): 
+        return reverse_lazy('home')

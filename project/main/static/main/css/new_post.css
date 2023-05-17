@@ -1,8 +1,8 @@
-.registration_form {
+.add_new_post_form {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    min-width: 30vw;
+    min-width: 50vw;
     text-transform: uppercase;
     padding: 20px; 
     box-shadow: 0px 5px 10px white;
@@ -14,7 +14,6 @@
     margin-top: 15px;
 }
 
-.alert-danger {
+.alert-warning {
     margin-top: 5px;
 }
-
