@@ -20,3 +20,20 @@ class MyRegisteredUser(models.Model):
     # value in database you can't to update unlike of usage auto_now param
     reg_at = models.DateTimeField(auto_now_add=True)
 ''' 
+
+class Post(models.Model):
+    title = models.CharField(max_length=50, null=False, blank=False)
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
+    content = models.TextField(blank=False, null=False)
+    time_created = models.DateField(auto_now_add=True)
+    time_updated = models.DateField(auto_now=True)
+    is_published = models.BooleanField(default=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    # This method is useful when we whant to get our records. We will see titles of posts instead of Id:
+    def __str__(self):
+        return self.title
+
+    # This method is useful for making a dinamic url adress:
+    def get_absolute_url(self):
+        return reverse("post", kwargs={"pk": self.pk})
